@@ -26,18 +26,17 @@ const fShader = webgl.createShader(
 
 const program = webgl.createProgram(gl, vShader, fShader);
 
-const posAttr = gl.getAttribLocation(program, "a_position");
+const aPosition = gl.getAttribLocation(program, "a_position");
+const uColor = gl.getUniformLocation(program, "u_color");
 const posBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
 
 gl.useProgram(program);
-gl.enableVertexAttribArray(posAttr);
+gl.enableVertexAttribArray(aPosition);
 
 // DRAW
 gl.clearColor(0, 0, 0, 0);
 gl.clear(gl.COLOR_BUFFER_BIT);
-
-// gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
 
 // Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)
 var size = 2; // 2 components per iteration
@@ -47,9 +46,11 @@ var stride = 0; // 0 = move forward size * sizeof(type) each iteration to get th
 var offset = 0; // start at the beginning of the buffer
 
 // Tell the attribute how to read data from the ARRAY_BUFFER
-gl.vertexAttribPointer(posAttr, size, type, normalize, stride, offset);
+gl.vertexAttribPointer(aPosition, size, type, normalize, stride, offset);
 
-drawRect(gl, rand(), rand(), rand(), rand());
+for (let i = 0; i < 50; i++) {
+  drawRect(gl, rand(), rand(), rand(), rand());
+}
 
 function drawRect(gl, x, y, w, h) {
   const x1 = x + w;
@@ -59,6 +60,14 @@ function drawRect(gl, x, y, w, h) {
     gl.ARRAY_BUFFER,
     new Float32Array([x, y, x1, y, x, y1, x, y1, x1, y, x1, y1]),
     gl.STATIC_DRAW
+  );
+
+  gl.uniform4f(
+    uColor,
+    Math.random(),
+    Math.random(),
+    Math.random(),
+    Math.random()
   );
 
   gl.drawArrays(gl.TRIANGLES, 0, 6);
