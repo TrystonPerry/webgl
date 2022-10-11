@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="c"></canvas>
+
+  <script id="vertex" type="not-js">
+    // Our attribute
+    attribute vec4 a_position;
+
+    // All shaders have a main function
+    void main() {
+      // All vertex shaders have a gl_position for setting position
+      gl_Position = a_position;
+    }
+  </script>
+
+  <script id="fragment" type="not-js">
+    // Set the precision of the fragment shaders
+    precision mediump float;
+
+    void main() {
+      gl_FragColor = vec4(1, 0, 0.5, 1);
+    }
+  </script>
+
+  <script type="module" src="./app.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
+</body>
+</html>
