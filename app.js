@@ -28,6 +28,7 @@ const program = webgl.createProgram(gl, vShader, fShader);
 
 const aPosition = gl.getAttribLocation(program, "a_position");
 const uColor = gl.getUniformLocation(program, "u_color");
+const uTranslation = gl.getUniformLocation(program, "u_translation");
 const posBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
 
@@ -48,9 +49,7 @@ var offset = 0; // start at the beginning of the buffer
 // Tell the attribute how to read data from the ARRAY_BUFFER
 gl.vertexAttribPointer(aPosition, size, type, normalize, stride, offset);
 
-for (let i = 0; i < 50; i++) {
-  drawRect(gl, rand(), rand(), rand(), rand());
-}
+drawRect(gl, rand(), rand(), rand(), rand());
 
 function drawRect(gl, x, y, w, h) {
   const x1 = x + w;
